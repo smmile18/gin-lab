@@ -1,0 +1,19 @@
+version: '3'
+services:
+    postgres:
+        image: "postgres:11"
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: "db"
+            POSTGRES_USER: "user1"
+            POSTGRES_PASSWORD: "1234"
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
+    gin-lab:
+        build: .
+        ports: 
+            - "8000:8000"
