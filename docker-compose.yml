@@ -13,7 +13,7 @@ services:
         restart: always
         ports:
             - 8080:8080
-    gin-lab:
+    app:
         build: .
         ports: 
             - "8000:8000"

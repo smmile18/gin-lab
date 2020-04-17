@@ -1,13 +1,11 @@
-FROM golang:1.14.1
-RUN mkdir /app 
-ADD . /app/
-WORKDIR /app 
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
-COPY . .
-RUN go build -o main .
-CMD ["./main"]
+FROM golang:1.14.1 AS builder
+WORKDIR /go/src/gin-lab
+COPY . ./
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /server .
+ 
+FROM scratch
+COPY --from=builder ./server ./
+ENTRYPOINT ["./server"]
 
 
 
